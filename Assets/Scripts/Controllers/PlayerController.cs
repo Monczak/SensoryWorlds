@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Gyroscope = UnityEngine.InputSystem.Gyroscope;
 
 namespace SensoryWorlds.Controllers
 {
@@ -14,8 +10,10 @@ namespace SensoryWorlds.Controllers
 
         private Rigidbody2D rb;
         
-        private void Awake()
+        private void Start()
         {
+            Application.targetFrameRate = 90;
+            
             rb = GetComponent<Rigidbody2D>();
         }
 
