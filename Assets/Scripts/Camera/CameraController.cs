@@ -14,9 +14,12 @@ namespace SensoryWorlds.Camera
 
         private Vector3 currentVelocity;
         private float initialZ;
+
+        public UnityEngine.Camera Camera { get; private set; }
         
         private void Start()
         {
+            Camera = GetComponent<UnityEngine.Camera>();
             initialZ = transform.position.z;
         }
         

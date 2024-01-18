@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using SensoryWorlds.Camera;
 using UnityEngine;
 
 namespace SensoryWorlds.Managers
@@ -9,6 +9,8 @@ namespace SensoryWorlds.Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+        
+        public CameraController MainCamera { get; private set; }
 
         private void Awake()
         {
@@ -19,7 +21,7 @@ namespace SensoryWorlds.Managers
         // Start is called before the first frame update
         void Start()
         {
-        
+            MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         }
 
         // Update is called once per frame
