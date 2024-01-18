@@ -6,6 +6,8 @@ namespace SensoryWorlds.Controllers
     public class PlayerController : MonoBehaviour
     {
         [field: SerializeField] public float ForceAmount { get; private set; }
+        [field: SerializeField] public float BrakingPower { get; private set; }
+        
         private float acceleration;
 
         private Rigidbody2D rb;
@@ -30,9 +32,12 @@ namespace SensoryWorlds.Controllers
 
         private void Update()
         {
-            if (!GravitySensor.current.enabled) InputSystem.EnableDevice(GravitySensor.current);
+            if (GravitySensor.current is not null && !GravitySensor.current.enabled) InputSystem.EnableDevice(GravitySensor.current);
             
             acceleration = -Vector3.Cross(gravityInput, Vector3.down).z;
+            
+            var brakingAmount = Mathf.Max(acceleration * -rb.velocity.x * BrakingPower, 0) * Mathf.Sign(-acceleration);
+            acceleration -= brakingAmount;
         }
 
         private void FixedUpdate()
