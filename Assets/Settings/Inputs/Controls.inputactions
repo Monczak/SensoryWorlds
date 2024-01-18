@@ -6,10 +6,10 @@
             "id": "538d20c9-aed4-41d0-af4c-d901de359eec",
             "actions": [
                 {
-                    "name": "Attitude",
+                    "name": "Gravity",
                     "type": "Value",
-                    "id": "8fe2b63c-b9bb-471b-8afc-f4ce2db3387d",
-                    "expectedControlType": "Quaternion",
+                    "id": "bd499363-5fd3-409f-9a99-df5b437e067a",
+                    "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -18,12 +18,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "af40e030-cc74-485a-9157-56f724e631d8",
-                    "path": "<AttitudeSensor>/attitude",
+                    "id": "84ae4d0d-d513-469f-bc48-d41c6fc9f615",
+                    "path": "<GravitySensor>/gravity",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mobile",
-                    "action": "Attitude",
+                    "groups": "",
+                    "action": "Gravity",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

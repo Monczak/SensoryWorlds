@@ -28,10 +28,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""538d20c9-aed4-41d0-af4c-d901de359eec"",
             ""actions"": [
                 {
-                    ""name"": ""Attitude"",
+                    ""name"": ""Gravity"",
                     ""type"": ""Value"",
-                    ""id"": ""8fe2b63c-b9bb-471b-8afc-f4ce2db3387d"",
-                    ""expectedControlType"": ""Quaternion"",
+                    ""id"": ""bd499363-5fd3-409f-9a99-df5b437e067a"",
+                    ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -40,12 +40,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""af40e030-cc74-485a-9157-56f724e631d8"",
-                    ""path"": ""<AttitudeSensor>/attitude"",
+                    ""id"": ""84ae4d0d-d513-469f-bc48-d41c6fc9f615"",
+                    ""path"": ""<GravitySensor>/gravity"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mobile"",
-                    ""action"": ""Attitude"",
+                    ""groups"": """",
+                    ""action"": ""Gravity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -93,7 +93,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 }");
         // Player Controls
         m_PlayerControls = asset.FindActionMap("Player Controls", throwIfNotFound: true);
-        m_PlayerControls_Attitude = m_PlayerControls.FindAction("Attitude", throwIfNotFound: true);
+        m_PlayerControls_Gravity = m_PlayerControls.FindAction("Gravity", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -155,12 +155,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // Player Controls
     private readonly InputActionMap m_PlayerControls;
     private List<IPlayerControlsActions> m_PlayerControlsActionsCallbackInterfaces = new List<IPlayerControlsActions>();
-    private readonly InputAction m_PlayerControls_Attitude;
+    private readonly InputAction m_PlayerControls_Gravity;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
         public PlayerControlsActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Attitude => m_Wrapper.m_PlayerControls_Attitude;
+        public InputAction @Gravity => m_Wrapper.m_PlayerControls_Gravity;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -170,16 +170,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerControlsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerControlsActionsCallbackInterfaces.Add(instance);
-            @Attitude.started += instance.OnAttitude;
-            @Attitude.performed += instance.OnAttitude;
-            @Attitude.canceled += instance.OnAttitude;
+            @Gravity.started += instance.OnGravity;
+            @Gravity.performed += instance.OnGravity;
+            @Gravity.canceled += instance.OnGravity;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
         {
-            @Attitude.started -= instance.OnAttitude;
-            @Attitude.performed -= instance.OnAttitude;
-            @Attitude.canceled -= instance.OnAttitude;
+            @Gravity.started -= instance.OnGravity;
+            @Gravity.performed -= instance.OnGravity;
+            @Gravity.canceled -= instance.OnGravity;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -208,6 +208,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     }
     public interface IPlayerControlsActions
     {
-        void OnAttitude(InputAction.CallbackContext context);
+        void OnGravity(InputAction.CallbackContext context);
     }
 }
