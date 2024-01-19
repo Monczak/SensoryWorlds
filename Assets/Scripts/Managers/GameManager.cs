@@ -21,6 +21,8 @@ namespace SensoryWorlds.Managers
         // Start is called before the first frame update
         void Start()
         {
+            Application.targetFrameRate = 60;
+            
             MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         }
 
