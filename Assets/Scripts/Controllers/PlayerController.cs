@@ -6,6 +6,7 @@ namespace SensoryWorlds.Controllers
 {
     public class PlayerController : MonoBehaviour
     {
+        [field: SerializeField] public bool Dead { get; private set; }
         [field: SerializeField] public float ForceAmount { get; private set; }
         [field: SerializeField] public float BrakingPower { get; private set; }
         [field: SerializeField] public ParticleSystem ExplodeParticles { get; private set; }
@@ -51,23 +52,36 @@ namespace SensoryWorlds.Controllers
         public void SpawnAt(Transform target)
         {
             Vector2 pos = target is null ? Vector2.zero : target.position;
-            
-            rb.MovePosition(pos);
+
+            transform.position = pos;
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
         }
 
-        public void PlayExplodeAnimation()
+        public void Kill(bool explode)
         {
-            StartCoroutine(StartExplodeAnimation());
+            StartCoroutine(PerformKillSequence(explode));
         }
 
-        private IEnumerator StartExplodeAnimation()
+        private IEnumerator PerformKillSequence(bool explode)
         {
-            SpriteRenderer.enabled = false;
-            ExplodeParticles.Play();
+            Dead = true;
+            if (explode)
+            {
+                SpriteRenderer.enabled = false;
+                ExplodeParticles.Play();
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            
             yield return new WaitForSeconds(1.2f);
-            SpriteRenderer.enabled = true;
+
+            if (explode)
+            {
+                SpriteRenderer.enabled = true;
+                rb.constraints = RigidbodyConstraints2D.None;
+            }
+
+            Dead = false;
         }
     }
 }

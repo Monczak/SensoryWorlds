@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SensoryWorlds.Objects;
@@ -24,6 +25,15 @@ namespace SensoryWorlds.Managers
             
             minCheckpointIndex = checkpoints.Min(checkpoint => checkpoint.Index);
             maxCheckpointIndex = checkpoints.Max(checkpoint => checkpoint.Index);
+
+            StartCoroutine(InitializeCheckpoint());
+        }
+
+        private IEnumerator InitializeCheckpoint()
+        {
+            yield return new WaitForEndOfFrame();
+            if (ActiveCheckpoint is not null)
+                ActivateCheckpoint?.Invoke(this, ActiveCheckpoint);
         }
 
         public void SetActiveCheckpoint(Checkpoint checkpoint)

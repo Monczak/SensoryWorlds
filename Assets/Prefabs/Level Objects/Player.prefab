@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -749,9 +749,9 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
     sphericalDirectionAmount: 0.51
-    randomPositionAmount: 0.1
+    randomPositionAmount: 0.14
     radius:
-      value: 0.58
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -1044,22 +1044,22 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
+          time: 0.005115509
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: -1.3209513
+          outSlope: -1.3209513
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.12339293
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -2
-          outSlope: -2
+          inSlope: -0.5080558
+          outSlope: -0.5080558
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.13299239
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -2471,7 +2471,7 @@ ParticleSystem:
       m_Bits: 4294967295
     influenceList: []
   ClampVelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -2688,7 +2688,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0
+    dampen: 0.24
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -4984,7 +4984,7 @@ GameObject:
   - component: {fileID: 1178967694313211018}
   - component: {fileID: 2758105011391540842}
   - component: {fileID: 7339115747685816774}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5082,6 +5082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85eaa603276a14f4d8952436fa1c5eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Dead>k__BackingField: 0
   <ForceAmount>k__BackingField: 40
   <BrakingPower>k__BackingField: 0.3
   <ExplodeParticles>k__BackingField: {fileID: 2106382250592403301}

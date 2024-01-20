@@ -41,13 +41,14 @@ namespace SensoryWorlds.Managers
 
         public void KillPlayer(bool explodePlayer)
         {
-            StartCoroutine(PerformKillPlayerSequence(explodePlayer));
+            if (!player.Dead)
+                StartCoroutine(PerformKillPlayerSequence(explodePlayer));
         }
 
         private IEnumerator PerformKillPlayerSequence(bool explodePlayer)
         {
-            if (explodePlayer)
-                player.PlayExplodeAnimation();
+            player.Kill(explodePlayer);
+               
             DeathOverlay.StartDeathAnimation();
             yield return new WaitForSeconds(1.2f);
             
