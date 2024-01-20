@@ -10,7 +10,6 @@ namespace SensoryWorlds.Objects
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("dead lol");
             if (other.CompareTag("Player"))
             {
                 GameManager.Instance.KillPlayer();
