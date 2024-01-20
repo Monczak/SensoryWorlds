@@ -11,6 +11,21 @@ namespace SensoryWorlds.Managers
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField] private float intensity;
+        public float Intensity
+        {
+            get => intensity;
+            set
+            {
+                intensity = value;
+                AudioManager.Instance.BackgroundMusicIntensity = intensity;
+            }
+        }
+        
+        [field: Header("Gameplay")]
+        [field: SerializeField] public float MaxIntensity { get; private set; }
+        
+        [field: Header("Objects")]
         [field: SerializeField] public DeathOverlay DeathOverlay { get; private set; }
 
         private PlayerController player;
@@ -24,13 +39,15 @@ namespace SensoryWorlds.Managers
             Application.targetFrameRate = 60;
         }
 
-        public void KillPlayer()
+        public void KillPlayer(bool explodePlayer)
         {
-            StartCoroutine(PerformKillPlayerSequence());
+            StartCoroutine(PerformKillPlayerSequence(explodePlayer));
         }
 
-        private IEnumerator PerformKillPlayerSequence()
+        private IEnumerator PerformKillPlayerSequence(bool explodePlayer)
         {
+            if (explodePlayer)
+                player.PlayExplodeAnimation();
             DeathOverlay.StartDeathAnimation();
             yield return new WaitForSeconds(1.2f);
             

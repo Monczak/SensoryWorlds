@@ -12,7 +12,7 @@ namespace SensoryWorlds.Objects
         {
             if (other.CompareTag("Player"))
             {
-                GameManager.Instance.KillPlayer();
+                GameManager.Instance.KillPlayer(false);
             }
         }
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ namespace SensoryWorlds.Controllers
     {
         [field: SerializeField] public float ForceAmount { get; private set; }
         [field: SerializeField] public float BrakingPower { get; private set; }
+        [field: SerializeField] public ParticleSystem ExplodeParticles { get; private set; }
+        [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         
         private float acceleration;
 
@@ -52,6 +55,19 @@ namespace SensoryWorlds.Controllers
             rb.MovePosition(pos);
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
+        }
+
+        public void PlayExplodeAnimation()
+        {
+            StartCoroutine(StartExplodeAnimation());
+        }
+
+        private IEnumerator StartExplodeAnimation()
+        {
+            SpriteRenderer.enabled = false;
+            ExplodeParticles.Play();
+            yield return new WaitForSeconds(1.2f);
+            SpriteRenderer.enabled = true;
         }
     }
 }

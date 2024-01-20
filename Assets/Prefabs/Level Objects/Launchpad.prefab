@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1203369860409940144}
   - component: {fileID: 7918204250088551349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Launchpad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace SensoryWorlds.UI
 {
-    [ExecuteAlways]
+    [ExecuteInEditMode]
     public class DeathOverlay : MonoBehaviour
     {
         private Material material;

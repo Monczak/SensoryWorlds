@@ -12,6 +12,8 @@ namespace SensoryWorlds.Objects
         private Animator animator;
         private static readonly int ActiveAnimationTrigger = Animator.StringToHash("Active");
         private static readonly int FromRightAnimationBool = Animator.StringToHash("From Right");
+        
+        [field: SerializeField] public int Index { get; private set; }
 
         private void Start()
         {
