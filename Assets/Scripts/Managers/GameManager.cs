@@ -11,6 +11,7 @@ namespace SensoryWorlds.Managers
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Header("Gameplay")]
         [SerializeField] private float intensity;
         public float Intensity
         {
@@ -22,7 +23,6 @@ namespace SensoryWorlds.Managers
             }
         }
         
-        [field: Header("Gameplay")]
         [field: SerializeField] public float MaxIntensity { get; private set; }
         
         [field: Header("Objects")]
@@ -37,6 +37,8 @@ namespace SensoryWorlds.Managers
             player = ComponentCache.Instance.Player;
             cameraController = ComponentCache.Instance.MainCamera;
             Application.targetFrameRate = 60;
+            
+            ScoreManager.Instance.ResetTimer();
         }
 
         public void KillPlayer(bool explodePlayer)
@@ -51,6 +53,8 @@ namespace SensoryWorlds.Managers
                
             DeathOverlay.StartDeathAnimation();
             yield return new WaitForSeconds(1.2f);
+
+            ScoreManager.Instance.Deaths += 1;
             
             player.SpawnAt(CheckpointManager.Instance.ActiveCheckpoint.transform);
             yield return new WaitForFixedUpdate();

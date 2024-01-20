@@ -10,7 +10,7 @@ namespace SensoryWorlds.Utils
         private void Awake()
         {
             Instance ??= (T)this;
-            if (Instance != this) Destroy(gameObject);
+            if (Application.isPlaying && Instance != this) Destroy(gameObject);
         }
     }
 }

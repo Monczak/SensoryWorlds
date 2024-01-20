@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SensoryWorlds.Managers;
 using UnityEngine;
 
 namespace SensoryWorlds.Objects
@@ -23,6 +24,7 @@ namespace SensoryWorlds.Objects
 
         private IEnumerator StartCollectAnimation()
         {
+            ScoreManager.Instance.Gems += 1;
             animator.SetTrigger(CollectAnimationTrigger);
             yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
