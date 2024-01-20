@@ -39,6 +39,12 @@ namespace SensoryWorlds.Camera
                 new Vector3(targetPosition.x, targetPosition.y, initialZ), ref currentVelocity,
                 SmoothTime);
         }
+
+        public void CenterPosition()
+        {
+            transform.position = Target.position;
+            currentVelocity = Vector2.zero;
+        }
     }   
 }
 

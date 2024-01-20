@@ -13,13 +13,13 @@ namespace SensoryWorlds.Background
         private CameraController cameraController;
     
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-            cameraController = GameManager.Instance.MainCamera;
+            cameraController = ComponentCache.Instance.MainCamera;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             var pos = cameraController.transform.position / -(cameraController.transform.position.z - transform.position.z + 1) * ParallaxFactor;
             transform.position = new Vector3(pos.x, pos.y, transform.position.z);

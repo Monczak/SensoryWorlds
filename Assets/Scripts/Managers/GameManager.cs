@@ -2,34 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SensoryWorlds.Camera;
+using SensoryWorlds.Controllers;
+using SensoryWorlds.UI;
 using UnityEngine;
+using SensoryWorlds.Utils;
 
 namespace SensoryWorlds.Managers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
-        public static GameManager Instance { get; private set; }
+        [field: SerializeField] public DeathOverlay DeathOverlay { get; private set; }
+
+        private PlayerController player;
+        private CameraController cameraController;
         
-        public CameraController MainCamera { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance is null) Instance = this;
-            if (Instance != this) Destroy(gameObject);
-        }
-
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
+            player = ComponentCache.Instance.Player;
+            cameraController = ComponentCache.Instance.MainCamera;
             Application.targetFrameRate = 60;
-            
-            MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void KillPlayer()
         {
-        
+            StartCoroutine(PerformKillPlayerSequence());
+        }
+
+        private IEnumerator PerformKillPlayerSequence()
+        {
+            DeathOverlay.StartDeathAnimation();
+            yield return new WaitForSeconds(1.2f);
+            
+            player.SpawnAt(CheckpointManager.Instance.ActiveCheckpoint.transform);
+            yield return new WaitForFixedUpdate();
+            cameraController.CenterPosition();
+            DeathOverlay.StartRespawnAnimation();
         }
     }
 }

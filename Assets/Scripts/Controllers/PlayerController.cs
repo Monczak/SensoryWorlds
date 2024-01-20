@@ -44,6 +44,15 @@ namespace SensoryWorlds.Controllers
         {
             rb.AddForce(Vector2.right * (acceleration * ForceAmount));
         }
+
+        public void SpawnAt(Transform target)
+        {
+            Vector2 pos = target is null ? Vector2.zero : target.position;
+            
+            rb.MovePosition(pos);
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0;
+        }
     }
 }
 

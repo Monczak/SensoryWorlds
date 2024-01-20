@@ -12,7 +12,7 @@ namespace SensoryWorlds.Objects
         private Rigidbody2D body;
         
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             body = GetComponent<Rigidbody2D>();
         }
