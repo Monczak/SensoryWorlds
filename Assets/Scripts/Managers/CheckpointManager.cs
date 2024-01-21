@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SensoryWorlds.Controllers;
 using SensoryWorlds.Objects;
 using UnityEngine;
 using SensoryWorlds.Utils;
@@ -12,11 +13,13 @@ namespace SensoryWorlds.Managers
     {
         public struct CheckpointActivateEventArgs
         {
+            public PlayerController Player { get; }
             public Checkpoint Checkpoint { get; }
             public bool Silent { get; }
 
-            public CheckpointActivateEventArgs(Checkpoint checkpoint, bool silent)
+            public CheckpointActivateEventArgs(PlayerController player, Checkpoint checkpoint, bool silent)
             {
+                Player = player;
                 Checkpoint = checkpoint;
                 Silent = silent;
             }
@@ -37,24 +40,34 @@ namespace SensoryWorlds.Managers
             
             minCheckpointIntensity = checkpoints.Min(checkpoint => checkpoint.Intensity);
             maxCheckpointIntensity = checkpoints.Max(checkpoint => checkpoint.Intensity);
-
-            StartCoroutine(InitializeCheckpoint());
+            
+            GameManager.Instance.StartGame += OnStartGame;
         }
 
-        private IEnumerator InitializeCheckpoint()
+        private void OnStartGame(object sender, EventArgs e)
+        {
+            InitializeCheckpoint(GameManager.Instance.InitialCheckpoint);
+        }
+
+        private void InitializeCheckpoint(Checkpoint checkpoint)
+        {
+            StartCoroutine(PerformInitializeCheckpoint(checkpoint));
+        }
+
+        private IEnumerator PerformInitializeCheckpoint(Checkpoint checkpoint)
         {
             yield return new WaitForEndOfFrame();
-            if (ActiveCheckpoint is not null)
-                ActivateCheckpoint?.Invoke(this, new CheckpointActivateEventArgs(ActiveCheckpoint, true));
+            if (checkpoint is not null)
+                SetActiveCheckpoint(checkpoint, true);
         }
 
-        public void SetActiveCheckpoint(Checkpoint checkpoint)
+        public void SetActiveCheckpoint(Checkpoint checkpoint, bool silent = false)
         {
             if (checkpoint != ActiveCheckpoint)
             {
                 DeactivateCheckpoint?.Invoke(this, ActiveCheckpoint);
                 ActiveCheckpoint = checkpoint;
-                ActivateCheckpoint?.Invoke(this, new CheckpointActivateEventArgs(ActiveCheckpoint, false));
+                ActivateCheckpoint?.Invoke(this, new CheckpointActivateEventArgs(ComponentCache.Instance.Player, ActiveCheckpoint, silent));
 
                 GameManager.Instance.Intensity =
                     Mathf.InverseLerp(minCheckpointIntensity, maxCheckpointIntensity, checkpoint.Intensity) *

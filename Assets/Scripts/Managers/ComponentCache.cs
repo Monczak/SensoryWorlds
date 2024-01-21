@@ -10,12 +10,12 @@ namespace SensoryWorlds.Managers
     public class ComponentCache : Singleton<ComponentCache>
     {
         public CameraController MainCamera { get; private set; }
-        public PlayerController Player { get; private set; }
+        public PlayerController Player { get; set; }
 
         private void Start()
         {
             MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-            Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
+        
     }
 }

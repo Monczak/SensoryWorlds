@@ -8,8 +8,6 @@ namespace SensoryWorlds.Objects
 {
     public class Checkpoint : MonoBehaviour
     {
-        private PlayerController playerController;
-        
         private Animator animator;
         private static readonly int ActiveAnimationTrigger = Animator.StringToHash("Active");
         private static readonly int FromRightAnimationBool = Animator.StringToHash("From Right");
@@ -25,8 +23,6 @@ namespace SensoryWorlds.Objects
             CheckpointManager.Instance.DeactivateCheckpoint += OnDeactivateCheckpoint;
 
             animator = GetComponent<Animator>();
-
-            playerController = ComponentCache.Instance.Player;
         }
 
         private void OnDeactivateCheckpoint(object sender, Checkpoint e)
@@ -38,10 +34,13 @@ namespace SensoryWorlds.Objects
         private void OnActivateCheckpoint(object sender, CheckpointManager.CheckpointActivateEventArgs e)
         {
             if (e.Checkpoint != this) return;
-            animator.SetBool(FromRightAnimationBool, playerController.transform.position.x > transform.position.x);
-            animator.SetBool(ActiveAnimationTrigger, true);
-            
-            if (!e.Silent) AudioManager.Instance.Play(ActivateSound);
+
+            if (!e.Silent)
+            {
+                animator.SetBool(FromRightAnimationBool, e.Player.transform.position.x > transform.position.x);
+                animator.SetBool(ActiveAnimationTrigger, true);
+                AudioManager.Instance.Play(ActivateSound);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

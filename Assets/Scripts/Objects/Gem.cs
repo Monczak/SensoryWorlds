@@ -20,6 +20,14 @@ namespace SensoryWorlds.Objects
         {
             animator = GetComponent<Animator>();
             alive = true;
+            
+            GameManager.Instance.StartGame += OnStartGame;
+        }
+
+        private void OnStartGame(object sender, EventArgs e)
+        {
+            gameObject.SetActive(true);
+            alive = true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -35,7 +43,8 @@ namespace SensoryWorlds.Objects
             ScoreManager.Instance.Gems += 1;
             animator.SetTrigger(CollectAnimationTrigger);
             yield return new WaitForSeconds(0.5f);
-            Destroy(gameObject);
+            
+            gameObject.SetActive(false);
         } 
     }
 }

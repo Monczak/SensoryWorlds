@@ -12,7 +12,6 @@ namespace SensoryWorlds.UI
     public class FadeOverlay : MonoBehaviour
     {
         private Material material;
-        [SerializeField] private PlayerController player;
         [SerializeField] private UnityEngine.Camera mainCamera;
 
         [SerializeField] private Animator animator;
@@ -44,8 +43,8 @@ namespace SensoryWorlds.UI
             material.SetFloat(HoleSizeProp, HoleSize * screenDiagonal);
             material.SetFloat(HoleRotationProp, HoleRotation);
 
-            if (Application.isPlaying)
-                HolePosition = player.transform.position;
+            if (Application.isPlaying && ComponentCache.Instance.Player is not null)
+                HolePosition = ComponentCache.Instance.Player.transform.position;
             material.SetVector(HolePositionProp, -HolePosition);
         }
 

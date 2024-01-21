@@ -10,6 +10,8 @@ namespace SensoryWorlds.Managers
         [SerializeField] private int gems;
         [SerializeField] private int deaths;
 
+        private bool isRunning = false;
+
         public float ElapsedTime
         {
             get => elapsedTime;
@@ -44,6 +46,30 @@ namespace SensoryWorlds.Managers
         public event EventHandler<int> GemsUpdate;
         public event EventHandler<int> DeathsUpdate;
 
+        private void Start()
+        {
+            GameManager.Instance.StartGame += OnStartGame;
+            GameManager.Instance.StopGame += OnStopGame;
+            GameManager.Instance.ResetGame += OnResetGame;
+        }
+
+        private void OnStopGame(object sender, EventArgs e)
+        {
+            isRunning = false;
+        }
+
+        private void OnStartGame(object sender, EventArgs e)
+        {
+            isRunning = true;
+        }
+
+        private void OnResetGame(object sender, EventArgs e)
+        {
+            ResetTimer();
+            Gems = 0;
+            Deaths = 0;
+        }
+
         public void ResetTimer()
         {
             ElapsedTime = 0;
@@ -51,7 +77,8 @@ namespace SensoryWorlds.Managers
 
         private void Update()
         {
-            ElapsedTime += Time.deltaTime;
+            if (isRunning)
+                ElapsedTime += Time.deltaTime;
         }
     }
 }
