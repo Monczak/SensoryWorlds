@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace SensoryWorlds.UI
 {
     [ExecuteInEditMode]
-    public class DeathOverlay : MonoBehaviour
+    public class FadeOverlay : MonoBehaviour
     {
         private Material material;
         [SerializeField] private PlayerController player;
@@ -24,8 +24,8 @@ namespace SensoryWorlds.UI
         private static readonly int HolePositionProp = Shader.PropertyToID("_Hole_Position");
         private static readonly int HoleSizeProp = Shader.PropertyToID("_Hole_Size");
         private static readonly int HoleRotationProp = Shader.PropertyToID("_Hole_Rotation");
-        private static readonly int DeathAnimationTrigger = Animator.StringToHash("Death");
-        private static readonly int RespawnAnimationTrigger = Animator.StringToHash("Respawn");
+        private static readonly int FadeAnimationTrigger = Animator.StringToHash("Fade");
+        private static readonly int UnfadeAnimationTrigger = Animator.StringToHash("Unfade");
 
         // Start is called before the first frame update
         private void Start()
@@ -49,14 +49,14 @@ namespace SensoryWorlds.UI
             material.SetVector(HolePositionProp, -HolePosition);
         }
 
-        public void StartDeathAnimation()
+        public void StartFade()
         {
-            animator.SetTrigger(DeathAnimationTrigger);
+            animator.SetTrigger(FadeAnimationTrigger);
         }
         
-        public void StartRespawnAnimation()
+        public void StartUnfade()
         {
-            animator.SetTrigger(RespawnAnimationTrigger);
+            animator.SetTrigger(UnfadeAnimationTrigger);
         }
     }
 }

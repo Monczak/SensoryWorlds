@@ -26,7 +26,7 @@ namespace SensoryWorlds.Managers
         [field: SerializeField] public float MaxIntensity { get; private set; }
         
         [field: Header("Objects")]
-        [field: SerializeField] public DeathOverlay DeathOverlay { get; private set; }
+        [field: SerializeField] public FadeOverlay FadeOverlay { get; private set; }
 
         private PlayerController player;
         private CameraController cameraController;
@@ -51,7 +51,7 @@ namespace SensoryWorlds.Managers
         {
             player.Kill(explodePlayer);
                
-            DeathOverlay.StartDeathAnimation();
+            FadeOverlay.StartFade();
             yield return new WaitForSeconds(1.2f);
 
             ScoreManager.Instance.Deaths += 1;
@@ -59,7 +59,7 @@ namespace SensoryWorlds.Managers
             player.SpawnAt(CheckpointManager.Instance.ActiveCheckpoint.transform);
             yield return new WaitForFixedUpdate();
             cameraController.CenterPosition();
-            DeathOverlay.StartRespawnAnimation();
+            FadeOverlay.StartUnfade();
         }
     }
 }
