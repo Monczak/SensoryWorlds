@@ -5083,7 +5083,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Dead>k__BackingField: 0
-  <ForceAmount>k__BackingField: 40
+  <ForceAmount>k__BackingField: 20
   <BrakingPower>k__BackingField: 0.3
   <ExplodeParticles>k__BackingField: {fileID: 2106382250592403301}
   <SpriteRenderer>k__BackingField: {fileID: 532160201587640596}
+  <DeathSound>k__BackingField: {fileID: 11400000, guid: 1deda86510038e64d83b4bb53ba28da6, type: 2}
+  <FallSound>k__BackingField: {fileID: 11400000, guid: 39158c17df06177488ec62f20498bbec, type: 2}
+  <RespawnSound>k__BackingField: {fileID: 11400000, guid: 9eb69b7d343624a43a523c743be3a669, type: 2}

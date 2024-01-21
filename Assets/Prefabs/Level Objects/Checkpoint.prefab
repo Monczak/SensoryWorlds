@@ -378,6 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e46ab930ba3466fb764368e6560a67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Index>k__BackingField: 0
+  <ActivateSound>k__BackingField: {fileID: 11400000, guid: c0b21cde4b4cd594c8fa44a064393853, type: 2}
 --- !u!95 &5190843161329673806
 Animator:
   serializedVersion: 5

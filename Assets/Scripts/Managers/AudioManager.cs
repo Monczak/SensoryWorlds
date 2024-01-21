@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SensoryWorlds.Audio;
 using SensoryWorlds.ScriptableObjects;
 using SensoryWorlds.Utils;
 using UnityEngine;
@@ -59,9 +60,11 @@ namespace SensoryWorlds.Managers
             }
         }
 
-        private void Play(AudioClip audioClip)
+        public void Play(AudioEvent audioEvent)
         {
-            
+            var source = Instantiate(AudioEventPrefab).GetComponent<OneshotAudioSource>();
+            source.transform.parent = AudioParent.transform;
+            source.AudioEvent = audioEvent;
         }
     }
 }

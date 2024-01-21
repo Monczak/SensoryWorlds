@@ -1,6 +1,7 @@
 ﻿using System;
 using SensoryWorlds.Controllers;
 using SensoryWorlds.Managers;
+using SensoryWorlds.ScriptableObjects;
 using UnityEngine;
 
 namespace SensoryWorlds.Objects
@@ -14,6 +15,8 @@ namespace SensoryWorlds.Objects
         private static readonly int FromRightAnimationBool = Animator.StringToHash("From Right");
         
         [field: SerializeField] public int Index { get; private set; }
+        
+        [field: SerializeField] public AudioEvent ActivateSound { get; private set; }
 
         private void Start()
         {
@@ -31,11 +34,13 @@ namespace SensoryWorlds.Objects
             animator.SetBool(ActiveAnimationTrigger, false);
         }
 
-        private void OnActivateCheckpoint(object sender, Checkpoint e)
+        private void OnActivateCheckpoint(object sender, CheckpointManager.CheckpointActivateEventArgs e)
         {
-            if (e != this) return;
+            if (e.Checkpoint != this) return;
             animator.SetBool(FromRightAnimationBool, playerController.transform.position.x > transform.position.x);
             animator.SetBool(ActiveAnimationTrigger, true);
+            
+            if (!e.Silent) AudioManager.Instance.Play(ActivateSound);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

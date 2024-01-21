@@ -1,4 +1,6 @@
 using System.Collections;
+using SensoryWorlds.Managers;
+using SensoryWorlds.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +13,10 @@ namespace SensoryWorlds.Controllers
         [field: SerializeField] public float BrakingPower { get; private set; }
         [field: SerializeField] public ParticleSystem ExplodeParticles { get; private set; }
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
+        
+        [field: SerializeField] public AudioEvent DeathSound { get; private set; }
+        [field: SerializeField] public AudioEvent FallSound { get; private set; }
+        [field: SerializeField] public AudioEvent RespawnSound { get; private set; }
         
         private float acceleration;
 
@@ -52,7 +58,7 @@ namespace SensoryWorlds.Controllers
         public void SpawnAt(Transform target)
         {
             Vector2 pos = target is null ? Vector2.zero : target.position;
-
+            
             transform.position = pos;
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
@@ -71,9 +77,16 @@ namespace SensoryWorlds.Controllers
                 SpriteRenderer.enabled = false;
                 ExplodeParticles.Play();
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                AudioManager.Instance.Play(DeathSound);
             }
-            
-            yield return new WaitForSeconds(1.2f);
+            else
+            {
+                AudioManager.Instance.Play(FallSound);
+            }
+
+            yield return new WaitForSeconds(0.6f);
+            AudioManager.Instance.Play(RespawnSound);
+            yield return new WaitForSeconds(0.6f);
 
             if (explode)
             {

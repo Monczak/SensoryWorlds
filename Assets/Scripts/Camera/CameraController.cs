@@ -12,7 +12,7 @@ namespace SensoryWorlds.Camera
         [field: SerializeField] public float LookaheadFactor { get; private set; }
         [field: SerializeField] public float MaxLookahead { get; private set; }
 
-        private Vector3 currentVelocity;
+        private Vector2 currentVelocity;
         private float initialZ;
 
         public UnityEngine.Camera Camera { get; private set; }
@@ -35,9 +35,11 @@ namespace SensoryWorlds.Camera
             
             var targetPosition = (Vector2)Target.transform.position + Vector2.ClampMagnitude(lookahead, MaxLookahead);
             
-            transform.position = Vector3.SmoothDamp(transform.position,
-                new Vector3(targetPosition.x, targetPosition.y, initialZ), ref currentVelocity,
+            var smoothedPosition = Vector2.SmoothDamp(transform.position,
+                new Vector2(targetPosition.x, targetPosition.y), ref currentVelocity,
                 SmoothTime);
+
+            transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, initialZ);
         }
 
         public void CenterPosition()
