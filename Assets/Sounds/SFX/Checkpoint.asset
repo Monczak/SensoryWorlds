@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Checkpoint
   m_EditorClassIdentifier: 
   <AudioClip>k__BackingField: {fileID: 8300000, guid: a8727a50c1e9e2a4f9e82c839b7d9969, type: 3}
-  <Volume>k__BackingField: 1
+  <Volume>k__BackingField: 0.61

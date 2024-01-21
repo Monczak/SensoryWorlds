@@ -15,6 +15,7 @@ namespace SensoryWorlds.Objects
         private static readonly int FromRightAnimationBool = Animator.StringToHash("From Right");
         
         [field: SerializeField] public int Index { get; private set; }
+        [field: SerializeField] public int Intensity { get; private set; }
         
         [field: SerializeField] public AudioEvent ActivateSound { get; private set; }
 

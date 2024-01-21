@@ -24,7 +24,7 @@ namespace SensoryWorlds.Managers
         
         [field: SerializeField] public Checkpoint ActiveCheckpoint { get; private set; }
         private List<Checkpoint> checkpoints = new();
-        private int minCheckpointIndex, maxCheckpointIndex;
+        private int minCheckpointIntensity, maxCheckpointIntensity;
 
         public event EventHandler<CheckpointActivateEventArgs> ActivateCheckpoint;
         public event EventHandler<Checkpoint> DeactivateCheckpoint;
@@ -35,8 +35,8 @@ namespace SensoryWorlds.Managers
                 .Select(c => c.GetComponent<Checkpoint>())
                 .ToList();
             
-            minCheckpointIndex = checkpoints.Min(checkpoint => checkpoint.Index);
-            maxCheckpointIndex = checkpoints.Max(checkpoint => checkpoint.Index);
+            minCheckpointIntensity = checkpoints.Min(checkpoint => checkpoint.Intensity);
+            maxCheckpointIntensity = checkpoints.Max(checkpoint => checkpoint.Intensity);
 
             StartCoroutine(InitializeCheckpoint());
         }
@@ -57,7 +57,7 @@ namespace SensoryWorlds.Managers
                 ActivateCheckpoint?.Invoke(this, new CheckpointActivateEventArgs(ActiveCheckpoint, false));
 
                 GameManager.Instance.Intensity =
-                    Mathf.InverseLerp(minCheckpointIndex, maxCheckpointIndex, checkpoint.Index) *
+                    Mathf.InverseLerp(minCheckpointIntensity, maxCheckpointIntensity, checkpoint.Intensity) *
                     GameManager.Instance.MaxIntensity;
             }
         }

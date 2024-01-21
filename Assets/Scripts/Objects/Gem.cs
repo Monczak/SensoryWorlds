@@ -9,6 +9,8 @@ namespace SensoryWorlds.Objects
 {
     public class Gem : MonoBehaviour
     {
+        private bool alive; 
+        
         private Animator animator;
         private static readonly int CollectAnimationTrigger = Animator.StringToHash("Collect");
         
@@ -17,16 +19,18 @@ namespace SensoryWorlds.Objects
         private void Start()
         {
             animator = GetComponent<Animator>();
+            alive = true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && alive)
                 StartCoroutine(StartCollectAnimation());
         }
 
         private IEnumerator StartCollectAnimation()
         {
+            alive = false;
             AudioManager.Instance.Play(CollectSound);
             ScoreManager.Instance.Gems += 1;
             animator.SetTrigger(CollectAnimationTrigger);

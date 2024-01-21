@@ -10,6 +10,7 @@ namespace SensoryWorlds.Objects
         public float LaunchStrength { get; set; }
         
         private Rigidbody2D body;
+        public event EventHandler Launch; 
         
         // Start is called before the first frame update
         private void Start()
@@ -22,6 +23,7 @@ namespace SensoryWorlds.Objects
             if (other.gameObject.CompareTag("Player"))
             {
                 body.AddRelativeForce(Vector2.up * LaunchStrength, ForceMode2D.Impulse);
+                Launch?.Invoke(this, null);
             }
         }
     }

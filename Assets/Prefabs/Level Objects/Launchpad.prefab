@@ -133,7 +133,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.24300005
+  m_Distance: 0.243
   m_DampingRatio: 0.6
   m_Frequency: 10
 --- !u!61 &6711191131591564316
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <LaunchStrength>k__BackingField: 40
   <Launcher>k__BackingField: {fileID: 6454024025724475808}
+  <LaunchSound>k__BackingField: {fileID: 11400000, guid: 66347531a0e646349b018259e5f6847e, type: 2}
 --- !u!1 &5073572241580087455
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +254,7 @@ GameObject:
   - component: {fileID: 2095869659979204676}
   - component: {fileID: 6072741879105214490}
   - component: {fileID: 8855842764722838445}
-  - component: {fileID: 3181572825166006646}
+  - component: {fileID: 5827988652263688502}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -462,8 +463,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &3181572825166006646
-PolygonCollider2D:
+--- !u!68 &5827988652263688502
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -495,35 +496,29 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: -0.79915965, y: 0.30277556}
-      - {x: -1.0037379, y: 0.1342858}
-      - {x: -1.0051227, y: -0.002720063}
-      - {x: -0.82640874, y: -0.2083398}
-      - {x: -0.56512314, y: -0.3502543}
-      - {x: -0.25152913, y: -0.42894453}
-      - {x: 0.08446534, y: -0.44467166}
-      - {x: 0.41299307, y: -0.39747974}
-      - {x: 0.7041805, y: -0.28722775}
-      - {x: 0.928011, y: -0.113517836}
-      - {x: 1.0125432, y: 0.10484634}
-      - {x: 0.8475837, y: 0.30369532}
-      - {x: 0.79570115, y: 0.10389354}
-      - {x: 0.62349737, y: -0.025702499}
-      - {x: 0.3001573, y: -0.14574607}
-      - {x: -0.060869507, y: -0.17579058}
-      - {x: -0.41435555, y: -0.115714446}
-      - {x: -0.62349737, y: -0.025702484}
-      - {x: -0.7923809, y: 0.20069428}
-      - {x: -0.79915965, y: 0.30277556}
-  m_UseDelaunayMesh: 0
+  - {x: -0.79915965, y: 0.30277556}
+  - {x: -1.0037379, y: 0.1342858}
+  - {x: -1.0051227, y: -0.002720063}
+  - {x: -0.82640874, y: -0.2083398}
+  - {x: -0.56512314, y: -0.3502543}
+  - {x: -0.25152913, y: -0.42894453}
+  - {x: 0.08446534, y: -0.44467166}
+  - {x: 0.41299307, y: -0.39747974}
+  - {x: 0.7041805, y: -0.28722775}
+  - {x: 0.928011, y: -0.113517836}
+  - {x: 1.0125432, y: 0.10484634}
+  - {x: 0.8475837, y: 0.30369532}
+  - {x: 0.79570115, y: 0.10389354}
+  - {x: 0.62349737, y: -0.025702499}
+  - {x: 0.3001573, y: -0.14574607}
+  - {x: -0.060869507, y: -0.17579058}
+  - {x: -0.41435555, y: -0.115714446}
+  - {x: -0.62349737, y: -0.025702484}
+  - {x: -0.7923809, y: 0.20069428}
+  - {x: -0.79915965, y: 0.30277556}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
