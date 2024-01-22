@@ -1,5 +1,5 @@
 # Sensory Worlds
-A short Unity platformer with tilt controls
+A short Unity platformer with tilt controls. Made completely from scratch, with fully custom graphics, shaders, music and sound effects.
 
 ### Video Demo
 Click to watch the video on YouTube.
