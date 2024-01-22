@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using SensoryWorlds.Managers;
 using SensoryWorlds.ScriptableObjects;
@@ -12,6 +13,7 @@ namespace SensoryWorlds.Controllers
         [field: SerializeField] public float ForceAmount { get; private set; }
         [field: SerializeField] public float BrakingPower { get; private set; }
         [field: SerializeField] public ParticleSystem ExplodeParticles { get; private set; }
+        [field: SerializeField] public ParticleSystem AppearParticles { get; private set; }
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         
         [field: SerializeField] public AudioEvent DeathSound { get; private set; }
@@ -24,15 +26,43 @@ namespace SensoryWorlds.Controllers
 
         private Controls controls;
         private Vector3 gravityInput;
-        
+        private Animator animator;
+        private static readonly int AppearAnimationTrigger = Animator.StringToHash("Appear");
+
         private void Start()
         {
             controls = new Controls();
             controls.PlayerControls.Gravity.performed += OnGravityPerformed;
             
             rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
             
             controls.Enable();
+            
+            AppearParticles.Play();
+            animator.SetTrigger(AppearAnimationTrigger);
+            
+            GameManager.Instance.StartGame += OnStartGame;
+            GameManager.Instance.StopGame += OnStopGame;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.StartGame -= OnStartGame;
+            GameManager.Instance.StopGame -= OnStopGame;
+        }
+
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
+        {
+            controls.Enable();
+            rb.drag = 0;
+        }
+
+        private void OnStopGame(object sender, EventArgs e)
+        {
+            controls.Disable();
+            gravityInput = Vector3.zero;
+            rb.drag = 5;
         }
 
         private void OnGravityPerformed(InputAction.CallbackContext obj)

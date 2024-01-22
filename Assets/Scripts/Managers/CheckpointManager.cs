@@ -44,7 +44,7 @@ namespace SensoryWorlds.Managers
             GameManager.Instance.StartGame += OnStartGame;
         }
 
-        private void OnStartGame(object sender, EventArgs e)
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
         {
             InitializeCheckpoint(GameManager.Instance.InitialCheckpoint);
         }

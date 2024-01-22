@@ -8,7 +8,18 @@ namespace SensoryWorlds.Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [field: SerializeField] public Rigidbody2D Target { get; private set; }
+        [SerializeField] private Transform target;
+
+        public Transform Target
+        {
+            get => target;
+            set
+            {
+                target = value;
+                targetRigidbody = target.GetComponent<Rigidbody2D>();
+            }
+        }
+        private Rigidbody2D targetRigidbody;
         
         [field: SerializeField] public float SmoothTime { get; private set; }
         [field: SerializeField] public float LookaheadFactor { get; private set; }
@@ -30,10 +41,12 @@ namespace SensoryWorlds.Camera
             GameManager.Instance.StartGame += OnStartGame;
         }
 
-        private void OnStartGame(object sender, EventArgs e)
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
         {
-            Target = ComponentCache.Instance.Player.GetComponent<Rigidbody2D>();
-            CenterPosition();
+            Target = ComponentCache.Instance.Player.transform;
+            
+            if (e.IsReplay)
+                CenterPosition();
         }
 
         private void LateUpdate()
@@ -48,7 +61,10 @@ namespace SensoryWorlds.Camera
             if (Target != null)
             {
                 targetPosition = Target.transform.position;
-                targetVelocity = Target.velocity;
+                if (targetRigidbody != null)
+                    targetVelocity = targetRigidbody.velocity;
+                else
+                    targetVelocity = Vector2.zero;
             }
             else
             {

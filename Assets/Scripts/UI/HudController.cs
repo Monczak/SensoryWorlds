@@ -1,7 +1,9 @@
 ﻿using System;
 using SensoryWorlds.Managers;
+using SensoryWorlds.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace SensoryWorlds.UI
 {
@@ -12,12 +14,40 @@ namespace SensoryWorlds.UI
         [field: SerializeField] public TMP_Text DeathsInfoText { get; private set; }
         
         [field: SerializeField] public Animator GemsInfoAnimator { get; private set; }
+        
+        private Animator animator;
+        private static readonly int ShowHudAnimation = Animator.StringToHash("Show");
 
         private void Start()
         {
+            animator = GetComponent<Animator>();
+            
             ScoreManager.Instance.TimeUpdate += OnTimeUpdate;
             ScoreManager.Instance.GemsUpdate += OnGemsUpdate;
             ScoreManager.Instance.DeathsUpdate += OnDeathsUpdate;
+            
+            GameManager.Instance.StartGame += OnStartGame;
+            GameManager.Instance.StopGame += OnStopGame;
+        }
+
+        private void OnDestroy()
+        {
+            ScoreManager.Instance.TimeUpdate -= OnTimeUpdate;
+            ScoreManager.Instance.GemsUpdate -= OnGemsUpdate;
+            ScoreManager.Instance.DeathsUpdate -= OnDeathsUpdate;
+            
+            GameManager.Instance.StartGame -= OnStartGame;
+            GameManager.Instance.StopGame -= OnStopGame;
+        }
+
+        private void OnStopGame(object sender, EventArgs e)
+        {
+            animator.SetBool(ShowHudAnimation, false);
+        }
+
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
+        {
+            animator.SetBool(ShowHudAnimation, true);
         }
 
         private void OnDeathsUpdate(object sender, int deaths)
@@ -33,11 +63,7 @@ namespace SensoryWorlds.UI
 
         private void OnTimeUpdate(object sender, float time)
         {
-            var minutes = Mathf.FloorToInt(time / 60);
-            var seconds = Mathf.FloorToInt(time % 60);
-            var milliseconds = Mathf.FloorToInt(time % 1 * 1000);
-
-            TimeInfoText.text = $"{minutes:00}:{seconds:00}.{milliseconds:000}";
+            TimeInfoText.text = TimeUtil.GetTimestamp(time);
         }
     }
 }

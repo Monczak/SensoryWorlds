@@ -53,12 +53,19 @@ namespace SensoryWorlds.Managers
             GameManager.Instance.ResetGame += OnResetGame;
         }
 
+        private void OnDestroy()
+        {
+            GameManager.Instance.StartGame -= OnStartGame;
+            GameManager.Instance.StopGame -= OnStopGame;
+            GameManager.Instance.ResetGame -= OnResetGame;
+        }
+
         private void OnStopGame(object sender, EventArgs e)
         {
             isRunning = false;
         }
 
-        private void OnStartGame(object sender, EventArgs e)
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
         {
             isRunning = true;
         }

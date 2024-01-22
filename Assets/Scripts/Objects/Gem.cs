@@ -24,7 +24,12 @@ namespace SensoryWorlds.Objects
             GameManager.Instance.StartGame += OnStartGame;
         }
 
-        private void OnStartGame(object sender, EventArgs e)
+        private void OnDestroy()
+        {
+            GameManager.Instance.StartGame -= OnStartGame;
+        }
+
+        private void OnStartGame(object sender, GameManager.StartGameEventArgs e)
         {
             gameObject.SetActive(true);
             alive = true;

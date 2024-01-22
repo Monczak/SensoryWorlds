@@ -20,7 +20,7 @@ namespace SensoryWorlds.Editor
             base.OnInspectorGUI();
 
             if (GUILayout.Button("Start") && Application.isPlaying)
-                gameManager.StartTheGame();
+                gameManager.StartTheGame(false);
             
             if (GUILayout.Button("Stop") && Application.isPlaying)
                 gameManager.StopTheGame();
@@ -28,6 +28,11 @@ namespace SensoryWorlds.Editor
             if (GUILayout.Button("Reset") && Application.isPlaying)
                 gameManager.ResetTheGame();
            
+            if (GUILayout.Button("Start Sequence (Not Replay)") && Application.isPlaying)
+                gameManager.StartGameSequence(false);
+            
+            if (GUILayout.Button("Start Sequence (Replay)") && Application.isPlaying)
+                gameManager.StartGameSequence(true);
         }
     }
 }

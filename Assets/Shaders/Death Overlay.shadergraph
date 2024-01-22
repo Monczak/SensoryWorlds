@@ -1215,10 +1215,10 @@
     "m_Guid": {
         "m_GuidSerialized": "69717422-8f1b-4e29-af4f-6179c7c25fb0"
     },
-    "m_Name": "_CameraOpaqueTexture",
+    "m_Name": "_MainTex",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "_CameraOpaqueTexture",
-    "m_DefaultReferenceName": "_CameraOpaqueTexture",
+    "m_RefNameGeneratedByDisplayName": "_MainTex",
+    "m_DefaultReferenceName": "_MainTex",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
